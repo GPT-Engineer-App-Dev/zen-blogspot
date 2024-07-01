@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTheme } from "@/components/ThemeContext.jsx";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,8 @@ const AddPost = () => {
   const [content, setContent] = useState("");
   const navigate = useNavigate();
 
+  const { theme } = useTheme();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const newPost = { title, content };
@@ -19,7 +22,7 @@ const AddPost = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center py-10">
+    <div className={`min-h-screen flex flex-col items-center py-10 ${theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-100 text-black"}`}>
       <Card className="w-full max-w-2xl">
         <CardHeader>
           <CardTitle>Add New Post</CardTitle>
@@ -27,7 +30,7 @@ const AddPost = () => {
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="title" className="block text-sm font-medium">
                 Title
               </label>
               <Input
@@ -39,7 +42,7 @@ const AddPost = () => {
               />
             </div>
             <div>
-              <label htmlFor="content" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="content" className="block text-sm font-medium">
                 Content
               </label>
               <Textarea
